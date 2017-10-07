@@ -1,38 +1,32 @@
 package database;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Entry {
-    private Map<String, Attribute> values = new HashMap<>();
+    private Map<Attribute, String> values = new HashMap<>();
 
-    public Entry(Map<String, Attribute> values) {
+    public Entry(Map<Attribute, String> values) {
         this.values = values;
     }
 
-    public Collection<Attribute> getValues() {
-        return values.<Attribute>values();
+    public Set<Attribute> getAttributes() {
+        return values.<Attribute>keySet();
     }
 
-    public Attribute getValueByName(String name){
-        return values.get(name);
+    public Collection<String> getValues() {
+        return values.<String>values();
     }
 
-    public void setValueByName(String name, DatabaseTypes type, String newValue){
-        Attribute oldValue = values.get(name);
+    public String getValueByAttribute(Attribute attribute){
+        return values.get(attribute);
+    }
+
+    public void setValueByAttribute(Attribute attribute, String newValue){
+        String oldValue = values.get(attribute);
         if (oldValue == null) {
-            throw new IllegalArgumentException("Attribute with name " + name + " does not exist in this entry");
+            throw new IllegalArgumentException(attribute + " does not exist in this entry");
         }
-        if (oldValue.getType() != type) {
-            throw new IllegalArgumentException("Attribute with name " + name + " has another type");
-        }
-        oldValue.setValue(newValue);
-    }
-
-    public List<DatabaseTypes> getTypes(){
-        return values.<Attribute>values().stream().map(Attribute::getType).collect(Collectors.toList());
+        values.put(attribute, newValue);
     }
 }
