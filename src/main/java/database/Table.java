@@ -34,6 +34,13 @@ public class Table {
         entries.add(newEntry);
     }
 
+    public void addAllEntries(List<Entry> newEntries){
+        for (Entry entry : newEntries) {
+            addEntry(entry);
+        }
+
+    }
+
     private boolean checkAttributes(Set<Attribute> entryAttributes){
         return attributes.containsAll(entryAttributes) && entryAttributes.containsAll(attributes);
     }
