@@ -1,7 +1,6 @@
 package database;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Entry {
     private Map<Attribute, String> values = new HashMap<>();
@@ -16,6 +15,10 @@ public class Entry {
 
     public Collection<String> getValues() {
         return values.<String>values();
+    }
+
+    public Map<Attribute, String> getEntry() {
+        return values;
     }
 
     public String getValueByAttribute(Attribute attribute){

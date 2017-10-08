@@ -7,11 +7,6 @@ import database.Table;
 import org.w3c.dom.CharacterData;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.xml.sax.SAXException;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -19,7 +14,7 @@ import java.util.*;
 final class XmlInput {
 
     Table readFile(File file) throws IOException {
-        Document doc = getXmlDocument(file);
+        Document doc = XmlUtilities.getDocumentToRead(file);
         if (doc == null) {
             return null;
         }
@@ -27,31 +22,10 @@ final class XmlInput {
         return parseXmlDocument(doc);
     }
 
-    private Document getXmlDocument(File file) throws IOException {
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder;
-        try {
-            builder = factory.newDocumentBuilder();
-        } catch (ParserConfigurationException ex) {
-            System.out.println("xml configuration error: " + ex.getMessage());
-            ex.printStackTrace();
-            return null;
-        }
-        Document doc;
-        try {
-            doc = builder.parse(file);
-        } catch (SAXException ex) {
-            System.out.println("xml parsing error: " + ex.getMessage());
-            ex.printStackTrace();
-            return null;
-        }
-        return doc;
-    }
-
     private Table parseXmlDocument(Document xml){
         Element root = xml.getDocumentElement();
 
-        Element name = (Element)root.getElementsByTagName("name").item(0);
+        Element name = (Element)root.getElementsByTagName("name");
         String tableName = parseTextNode(name);
 
         Element attributes = (Element)root.getElementsByTagName("attributes");

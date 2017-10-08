@@ -28,7 +28,7 @@ public class Table {
     }
 
     public void addEntry(Entry newEntry) {
-        if (checkAttributes(newEntry.getAttributes())) {
+        if (!checkAttributes(newEntry.getAttributes())) {
             throw new IllegalArgumentException("new entry and table have incompatible types");
         }
         entries.add(newEntry);
