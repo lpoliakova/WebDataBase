@@ -4,7 +4,7 @@ public class Attribute {
     private final String name;
     private final DatabaseTypes type;
 
-    public Attribute(String name, DatabaseTypes type, String value) {
+    public Attribute(String name, DatabaseTypes type) {
         this.name = name;
         this.type = type;
     }
