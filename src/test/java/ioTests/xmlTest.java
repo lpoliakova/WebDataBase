@@ -22,8 +22,8 @@ public class xmlTest {
         mikeAttributes.put(age, "21");
         people.addEntry(new Entry(mikeAttributes));
         Map<Attribute, String> jimAttributes = new HashMap<>();
-        mikeAttributes.put(name, "Jim");
-        mikeAttributes.put(age, "35");
+        jimAttributes.put(name, "Jim");
+        jimAttributes.put(age, "35");
         people.addEntry(new Entry(jimAttributes));
         Schema company = new Schema("Company");
         company.addTable("People", people);
