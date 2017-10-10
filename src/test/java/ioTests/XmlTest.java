@@ -1,16 +1,23 @@
 package ioTests;
 
 import database.*;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
-public class xmlTest {
+public class XmlTest {
     @Test
-    public void writeTableTest(){
+    void writeReadTableTest() {
+        Schema company = new Schema("Company");
+        Table people = createTestTable();
+        company.addTable(people.getName(), people);
+
+        Table peopleFromDb = company.readTableFromDatabase(people.getName());
+        Assertions.assertEquals(people, peopleFromDb);
+    }
+
+    private Table createTestTable() {
         Set<Attribute> attributes = new HashSet<>();
         Attribute name = new Attribute("name", DatabaseTypes.CHAR);
         Attribute age = new Attribute("age", DatabaseTypes.INT);
@@ -25,7 +32,6 @@ public class xmlTest {
         jimAttributes.put(name, "Jim");
         jimAttributes.put(age, "35");
         people.addEntry(new Entry(jimAttributes));
-        Schema company = new Schema("Company");
-        company.addTable("People", people);
+        return people;
     }
 }

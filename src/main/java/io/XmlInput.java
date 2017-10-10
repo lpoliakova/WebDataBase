@@ -25,15 +25,15 @@ final class XmlInput {
     private Table parseXmlDocument(Document xml){
         Element root = xml.getDocumentElement();
 
-        Element name = (Element)root.getElementsByTagName("name");
+        Element name = (Element)root.getElementsByTagName("name").item(0);
         String tableName = parseTextNode(name);
 
-        Element attributes = (Element)root.getElementsByTagName("attributes");
+        Element attributes = (Element)root.getElementsByTagName("attributes").item(0);
         Set<Attribute> tableAttributes = parseAttributes(attributes);
 
         Table table = new Table(tableName, tableAttributes);
 
-        Element entries = (Element)root.getElementsByTagName("entries");
+        Element entries = (Element)root.getElementsByTagName("entries").item(0);
         List<Entry> tableEntries = parseEntries(entries);
 
         table.addAllEntries(tableEntries);
