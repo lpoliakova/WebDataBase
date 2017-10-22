@@ -1,6 +1,6 @@
 package database;
 
-import io.FileIO;
+import io.SchemaIO;
 import io.TableIO;
 
 import java.io.IOException;

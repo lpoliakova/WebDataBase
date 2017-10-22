@@ -9,7 +9,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 
-class XmlUtilities {
+final class XmlUtilities {
     private static final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
     static Document getDocumentToRead(File file) throws IOException {

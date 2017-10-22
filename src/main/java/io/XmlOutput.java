@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-class XmlOutput {
+final class XmlOutput {
 
     void writeFile(File file, Table table) throws FileNotFoundException{
         Document doc = XmlUtilities.getDocumentToWrite();
