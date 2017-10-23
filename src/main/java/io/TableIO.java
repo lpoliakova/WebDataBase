@@ -29,7 +29,7 @@ public class TableIO {
         xmlOutput.writeFile(FileIO.convertToFile(schemaName, tableName), table);
     }
 
-    private static void deleteTable(String schemaName, String tableName) {
+    public static void deleteTable(String schemaName, String tableName) {
         File schema = new File(schemaName);
         if (!schema.exists()) {
             throw new IllegalArgumentException("schema with name " + schemaName + " does not exist");

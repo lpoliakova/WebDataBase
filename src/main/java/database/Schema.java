@@ -12,10 +12,30 @@ public class Schema {
     private String name;
     private Map<String, Table> tables;
 
-    public Schema(String name) {
+    public static Schema createSchema(String name) {
+        Schema schema = new Schema(name);
+        SchemaIO.createSchema(schema.getName());
+        return schema;
+    }
+
+    public static Schema loadSchema(String name) {
+        Schema schema = new Schema(name);
+        try {
+            SchemaIO.loadSchema(schema);
+        } catch (IOException ex) {
+            System.out.println("error during schema loading: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+        return schema;
+    }
+
+    public static void deleteSchema(Schema schema) {
+        SchemaIO.deleteSchema(schema.name);
+    }
+
+    private Schema(String name) {
         this.name = name;
         tables = new HashMap<>();
-        FileIO.createDirectory(name);
     }
 
     public String getName() {
@@ -26,7 +46,7 @@ public class Schema {
         return tables;
     }
 
-    public void addTable(String tableName, Table table){
+    public void addTable(String tableName, Table table) {
         if (tables.get(tableName) != null){
             throw new IllegalArgumentException("table with name " + name + " already exists");
         }
@@ -39,7 +59,7 @@ public class Schema {
         }
     }
 
-    public void addTable(String tableName, Set<Attribute> attributes){
+    public void addTable(String tableName, Set<Attribute> attributes) {
         if (tables.get(tableName) != null){
             throw new IllegalArgumentException("table with name " + name + " already exists");
         }
@@ -53,14 +73,14 @@ public class Schema {
         }
     }
 
-    public void deleteTable(String tableName){
+    public void deleteTable(String tableName) {
         if (tables.get(tableName) == null){
             throw new IllegalArgumentException("table with name " + name + "does not exists");
         }
-        FileIO.deleteFile(this.name, tableName);
+        TableIO.deleteTable(this.name, tableName);
     }
 
-    public Table readTableFromDatabase(String tableName){
+    public Table readTableFromDatabase(String tableName) {
         if (tables.get(tableName) == null){
             throw new IllegalArgumentException("table with name " + name + "does not exists");
         }
@@ -74,7 +94,7 @@ public class Schema {
         return table;
     }
 
-    public void writeTableToDatabase(String tableName){
+    public void writeTableToDatabase(String tableName) {
         if (tables.get(tableName) == null){
             throw new IllegalArgumentException("table with name " + name + "does not exists");
         }

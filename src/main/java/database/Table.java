@@ -34,15 +34,31 @@ public class Table {
         entries.add(newEntry);
     }
 
-    public void addAllEntries(List<Entry> newEntries){
+    public void addAllEntries(List<Entry> newEntries) {
         for (Entry entry : newEntries) {
             addEntry(entry);
         }
-
     }
 
-    private boolean checkAttributes(Set<Attribute> entryAttributes){
-        return attributes.containsAll(entryAttributes) && entryAttributes.containsAll(attributes);
+    public static Table subtractTables(String newTableName, Table firstTable, Table secondTable) {
+        if (!firstTable.checkAttributes(secondTable.getAttributes())) {
+            throw new IllegalArgumentException("tables have incompatible types");
+        }
+        Table table = new Table(newTableName, firstTable.attributes);
+        table.addAllEntries(firstTable.getEntries());
+        table.getEntries().removeAll(secondTable.getEntries());
+        return table;
+    }
+
+    public static Table intersectTables(String newTableName, Table firstTable, Table secondTable) {
+        if (!firstTable.checkAttributes(secondTable.getAttributes())) {
+            throw new IllegalArgumentException("tables have incompatible types");
+        }
+        Table table = new Table(newTableName, firstTable.attributes);
+        table.addAllEntries(firstTable.getEntries());
+        table.addAllEntries(firstTable.getEntries());
+        table.getEntries().retainAll(secondTable.getEntries());
+        return table;
     }
 
     @Override
@@ -63,5 +79,20 @@ public class Table {
         result = 31 * result + (attributes != null ? attributes.hashCode() : 0);
         result = 31 * result + (entries != null ? entries.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Table name = '" ).append(name).append("'").append(System.lineSeparator());
+        for (Attribute attribute : attributes) {
+            builder.append(attribute.toString()).append(System.lineSeparator());
+        }
+        builder.append("Number of entries = ").append(entries.size());
+        return builder.toString();
+    }
+
+    private boolean checkAttributes(Set<Attribute> entryAttributes) {
+        return attributes.size() == entryAttributes.size() && attributes.containsAll(entryAttributes);
     }
 }
