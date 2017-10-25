@@ -25,6 +25,7 @@ public class Table {
 
     public List<Entry> getEntries() {
         return entries;
+        // TODO: fix to unmodifiable collection
     }
 
     public void addEntry(Entry newEntry) {
@@ -55,7 +56,6 @@ public class Table {
             throw new IllegalArgumentException("tables have incompatible types");
         }
         Table table = new Table(newTableName, firstTable.attributes);
-        table.addAllEntries(firstTable.getEntries());
         table.addAllEntries(firstTable.getEntries());
         table.getEntries().retainAll(secondTable.getEntries());
         return table;
