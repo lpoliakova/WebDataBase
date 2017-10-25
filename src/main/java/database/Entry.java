@@ -5,7 +5,14 @@ import java.util.*;
 public class Entry {
     private Map<Attribute, String> values = new HashMap<>();
 
-    public Entry(Map<Attribute, String> values) {
+    public static Entry create(Map<Attribute, String> values) {
+        if (!DatabaseTypesValidator.validate(values)) {
+            throw new IllegalArgumentException("entry values do not corespond to their types");
+        }
+        return new Entry(values);
+    }
+
+    private Entry(Map<Attribute, String> values) {
         this.values = values;
     }
 

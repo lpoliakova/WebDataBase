@@ -74,7 +74,7 @@ final class XmlInput {
         for (Element field = (Element)entry.getFirstChild(); field != null; field = (Element)field.getNextSibling()){
             tableEntry.put(parseAttribute(field), parseValue(field));
         }
-        return new Entry(tableEntry);
+        return Entry.create(tableEntry);
     }
 
     private String parseValue(Element field){
