@@ -1,11 +1,9 @@
 package ioTests;
 
 import database.*;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.Assert;
+import org.junit.Test;
 import utils.TableTestExamples;
-
-import java.util.*;
 
 public class XmlTest {
     @Test
@@ -15,6 +13,6 @@ public class XmlTest {
         company.addTable(people.getName(), people);
 
         Table peopleFromDb = company.readTableFromDatabase(people.getName());
-        Assertions.assertEquals(people, peopleFromDb);
+        Assert.assertEquals(people, peopleFromDb);
     }
 }
