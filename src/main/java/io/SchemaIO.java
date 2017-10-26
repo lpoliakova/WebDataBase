@@ -45,7 +45,7 @@ public final class SchemaIO {
         File[] files = schema.listFiles();
         if (files != null) {
             return Arrays.stream(files).filter(f -> f.toString().endsWith(TableIO.TABLE_ENDING))
-                    .map(f -> f.getName())
+                    .map(File::getName)
                     .map(n -> n.substring(0, n.length() - TableIO.TABLE_ENDING.length()))
                     .collect(Collectors.toList());
         }
