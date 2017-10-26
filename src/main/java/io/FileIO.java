@@ -67,6 +67,6 @@ final class FileIO {
     }
 
     static File convertToFile(String schemaName, String tableName) {
-        return Paths.get(schemaName, tableName).toFile();
+        return Paths.get(schemaName, tableName + TableIO.TABLE_ENDING).toFile();
     }
 }
