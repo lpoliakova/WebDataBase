@@ -1,5 +1,4 @@
-<!DOCTYPE table [
-        <!ELEMENT table (name, attributes, entries)>
+<!ELEMENT table (name, attributes, entries)>
 
         <!ELEMENT attributes (attribute*)>
         <!ELEMENT attribute (name, type)>
@@ -10,4 +9,3 @@
         <!ELEMENT entry (field)+>
         <!ELEMENT field (name, type, value)>
         <!ELEMENT value (#PCDATA)>
-]>

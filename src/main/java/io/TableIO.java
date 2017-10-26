@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class TableIO {
+    static final String TABLE_ENDING = ".xml";
     private static final XmlInput xmlInput = new XmlInput();
     private static final XmlOutput xmlOutput = new XmlOutput();
 
@@ -14,9 +15,9 @@ public class TableIO {
         if (!schema.exists()) {
             throw new IllegalArgumentException("schema with name " + schemaName + " does not exist");
         }
-        File table = FileIO.convertToFile(schemaName, tableName);
+        File table = convertToFile(schemaName, tableName);
         if (!table.exists()) {
-            throw new IllegalArgumentException("table with name" + tableName + " does not exist");
+            throw new IllegalArgumentException("table with name " + tableName + " does not exist");
         }
         return xmlInput.readFile(table);
     }
@@ -26,7 +27,7 @@ public class TableIO {
         if (!schema.exists()) {
             throw new IllegalArgumentException("schema with name " + schemaName + " does not exist");
         }
-        xmlOutput.writeFile(FileIO.convertToFile(schemaName, tableName), table);
+        xmlOutput.writeFile(convertToFile(schemaName, tableName), table);
     }
 
     public static void deleteTable(String schemaName, String tableName) {
@@ -34,10 +35,17 @@ public class TableIO {
         if (!schema.exists()) {
             throw new IllegalArgumentException("schema with name " + schemaName + " does not exist");
         }
-        File table = FileIO.convertToFile(schemaName, tableName);
+        File table = convertToFile(schemaName, tableName);
         if (!table.exists()) {
             throw new IllegalArgumentException("table with name" + tableName + " does not exist");
         }
         FileIO.deleteFile(table);
+    }
+
+    private static File convertToFile(String schemaName, String tableName) {
+        if (tableName.endsWith(TABLE_ENDING)) {
+            return FileIO.convertToFile(schemaName, tableName);
+        }
+        return FileIO.convertToFile(schemaName, tableName + TABLE_ENDING);
     }
 }

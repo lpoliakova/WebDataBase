@@ -1,7 +1,12 @@
 package io;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 final class FileIO {
     private static final String FILE_ENDING = ".xml";
@@ -14,8 +19,12 @@ final class FileIO {
 
         try {
             dir.mkdir();
+            Files.copy(Paths.get(XmlUtilities.getDtd()), Paths.get(name, XmlUtilities.getDtd()), REPLACE_EXISTING);
         } catch (SecurityException ex) {
             System.out.println("permission denied: " + ex.getMessage());
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            System.out.println("can not create dtd file: " + ex.getMessage());
             ex.printStackTrace();
         }
     }
@@ -58,7 +67,6 @@ final class FileIO {
     }
 
     static File convertToFile(String schemaName, String tableName) {
-        return Paths.get(schemaName, tableName + FILE_ENDING).toFile();
+        return Paths.get(schemaName, tableName).toFile();
     }
-
 }

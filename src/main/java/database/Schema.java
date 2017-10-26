@@ -77,6 +77,7 @@ public class Schema {
         if (tables.get(tableName) == null){
             throw new IllegalArgumentException("table with name " + name + "does not exists");
         }
+        tables.remove(tableName);
         TableIO.deleteTable(this.name, tableName);
     }
 

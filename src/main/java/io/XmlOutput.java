@@ -10,6 +10,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -25,8 +26,8 @@ final class XmlOutput {
 
     private void addDtd(Document xml) {
         DOMImplementation domImpl = xml.getImplementation();
-        DocumentType doctype = domImpl.createDocumentType("table", "", "TableConfig.dtd");
-        xml.appendChild(doctype);
+        DocumentType docType = domImpl.createDocumentType("table", "", XmlUtilities.getDtd());
+        xml.appendChild(docType);
     }
 
     private void writeXmlDocument(Document xml, Table table){

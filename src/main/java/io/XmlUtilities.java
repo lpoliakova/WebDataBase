@@ -12,6 +12,10 @@ import java.io.IOException;
 final class XmlUtilities {
     private static final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
+    static String getDtd() {
+        return "TableConfig.dtd";
+    }
+
     static Document getDocumentToRead(File file) throws IOException {
         factory.setIgnoringElementContentWhitespace(true);
         DocumentBuilder builder = getDocumentBuilder();
