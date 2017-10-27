@@ -5,7 +5,6 @@ import database.Table;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,8 +27,8 @@ public final class SchemaIO {
         if (!schemaDir.isDirectory()) {
             throw new IllegalArgumentException(schema.getName() + " is not a directory");
         }
-        for (File file : listSchemaTables(schemaDir)) {
-            Table table = TableIO.readTable(schema.getName(), file.getName());
+        for (String tableName : listSchemaTableNames(schemaDir)) {
+            Table table = TableIO.readTable(schema.getName(), tableName);
             schema.addTable(table.getName(), table);
         }
     }
@@ -42,10 +41,13 @@ public final class SchemaIO {
         FileIO.deleteDirectory(name);
     }
 
-    private static List<File> listSchemaTables(File schema) {
+    private static List<String> listSchemaTableNames(File schema) {
         File[] files = schema.listFiles();
         if (files != null) {
-            return Arrays.stream(files).filter(f -> f.toString().endsWith(TableIO.TABLE_ENDING)).collect(Collectors.toList());
+            return Arrays.stream(files).filter(f -> f.toString().endsWith(TableIO.TABLE_ENDING))
+                    .map(File::getName)
+                    .map(n -> n.substring(0, n.length() - TableIO.TABLE_ENDING.length()))
+                    .collect(Collectors.toList());
         }
         return new ArrayList<>();
     }
