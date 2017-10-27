@@ -29,8 +29,8 @@ public class Schema {
         return schema;
     }
 
-    public static void deleteSchema(Schema schema) {
-        SchemaIO.deleteSchema(schema.name);
+    public static void deleteSchema(String schemaName) {
+        SchemaIO.deleteSchema(schemaName);
     }
 
     private Schema(String name) {

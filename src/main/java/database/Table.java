@@ -41,6 +41,13 @@ public class Table {
         }
     }
 
+    public void deleteEntry(Entry entry) {
+        if (!checkAttributes(entry.getAttributes())) {
+            throw new IllegalArgumentException("entry to delete and table have incompatible types");
+        }
+        entries.remove(entry);
+    }
+
     public static Table subtractTables(String newTableName, Table firstTable, Table secondTable) {
         if (!firstTable.checkAttributes(secondTable.getAttributes())) {
             throw new IllegalArgumentException("tables have incompatible types");

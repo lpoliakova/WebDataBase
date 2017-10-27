@@ -26,6 +26,6 @@ public class SchemaTests {
         schema.deleteTable(table.getName());
         Assert.assertNull(schema.getTables().get(table.getName()));
 
-        Schema.deleteSchema(schema);
+        Schema.deleteSchema(schema.getName());
     }
 }

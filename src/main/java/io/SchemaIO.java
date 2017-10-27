@@ -1,5 +1,6 @@
 package io;
 
+import database.DatabaseTypes;
 import database.Schema;
 import database.Table;
 
@@ -11,16 +12,35 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public final class SchemaIO {
+    public final static String DATABASE_LOCATION = "DATABASE";
+
+    public static List<String> listSchemaNames() {
+        File db = new File(DATABASE_LOCATION);
+
+        if (!db.exists()) {
+            FileIO.createDirectory(db);
+        }
+
+        File[] files = db.listFiles();
+        if (files != null) {
+            return Arrays.stream(files)
+                    .filter(File::isDirectory)
+                    .map(File::getName)
+                    .collect(Collectors.toList());
+        }
+        return new ArrayList<>();
+    }
+
     public static void createSchema(String name) {
-        File schema = new File(name);
+        File schema = FileIO.getSchemaLocation(name);
         if (schema.exists()) {
             throw new IllegalArgumentException("schema with name " + name + " already exists");
         }
-        FileIO.createDirectory(name);
+        FileIO.createDirectory(schema);
     }
 
     public static void loadSchema(Schema schema) throws IOException{
-        File schemaDir = new File(schema.getName());
+        File schemaDir = FileIO.getSchemaLocation(schema.getName());
         if (!schemaDir.exists()) {
             throw new IllegalArgumentException("schema with name " + schema.getName() + " does not exist");
         }
@@ -34,21 +54,23 @@ public final class SchemaIO {
     }
 
     public static void deleteSchema(String name) {
-        File schema = new File(name);
+        File schema = FileIO.getSchemaLocation(name);
         if (!schema.exists()) {
             throw new IllegalArgumentException("schema with name " + name + " does not exist");
         }
-        FileIO.deleteDirectory(name);
+        FileIO.deleteDirectory(schema);
     }
 
     private static List<String> listSchemaTableNames(File schema) {
         File[] files = schema.listFiles();
         if (files != null) {
-            return Arrays.stream(files).filter(f -> f.toString().endsWith(TableIO.TABLE_ENDING))
+            return Arrays.stream(files)
+                    .filter(f -> f.toString().endsWith(TableIO.TABLE_ENDING))
                     .map(File::getName)
                     .map(n -> n.substring(0, n.length() - TableIO.TABLE_ENDING.length()))
                     .collect(Collectors.toList());
         }
         return new ArrayList<>();
     }
+
 }

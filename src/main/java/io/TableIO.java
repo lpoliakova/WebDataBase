@@ -11,11 +11,11 @@ public class TableIO {
     private static final XmlOutput xmlOutput = new XmlOutput();
 
     public static Table readTable(String schemaName, String tableName) throws IOException {
-        File schema = new File(schemaName);
+        File schema = FileIO.getSchemaLocation(schemaName);
         if (!schema.exists()) {
             throw new IllegalArgumentException("schema with name " + schemaName + " does not exist");
         }
-        File table = FileIO.convertToFile(schemaName, tableName);
+        File table = FileIO.convertToFile(schema.toString(), tableName);
         if (!table.exists()) {
             throw new IllegalArgumentException("table with name " + tableName + " does not exist");
         }
@@ -23,19 +23,19 @@ public class TableIO {
     }
 
     public static void writeTable(String schemaName, String tableName, Table table) throws IOException {
-        File schema = new File(schemaName);
+        File schema = FileIO.getSchemaLocation(schemaName);
         if (!schema.exists()) {
             throw new IllegalArgumentException("schema with name " + schemaName + " does not exist");
         }
-        xmlOutput.writeFile(FileIO.convertToFile(schemaName, tableName), table);
+        xmlOutput.writeFile(FileIO.convertToFile(schema.toString(), tableName), table);
     }
 
     public static void deleteTable(String schemaName, String tableName) {
-        File schema = new File(schemaName);
+        File schema = FileIO.getSchemaLocation(schemaName);
         if (!schema.exists()) {
             throw new IllegalArgumentException("schema with name " + schemaName + " does not exist");
         }
-        File table = FileIO.convertToFile(schemaName, tableName);
+        File table = FileIO.convertToFile(schema.toString(), tableName);
         if (!table.exists()) {
             throw new IllegalArgumentException("table with name" + tableName + " does not exist");
         }

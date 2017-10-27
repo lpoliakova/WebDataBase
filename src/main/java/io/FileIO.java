@@ -9,15 +9,14 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 final class FileIO {
 
-    static void createDirectory(String name) {
-        File dir = new File(name);
+    static void createDirectory(File dir) {
         if (dir.exists()) {
-            throw new IllegalArgumentException("directory with name " + name + " already exists");
+            throw new IllegalArgumentException("directory with name already exists");
         }
 
         try {
             dir.mkdir();
-            Files.copy(Paths.get(XmlUtilities.getDtd()), Paths.get(name, XmlUtilities.getDtd()), REPLACE_EXISTING);
+            Files.copy(Paths.get(XmlUtilities.getDtd()), Paths.get(dir.toString(), XmlUtilities.getDtd()), REPLACE_EXISTING);
         } catch (SecurityException ex) {
             System.out.println("permission denied: " + ex.getMessage());
             ex.printStackTrace();
@@ -27,10 +26,9 @@ final class FileIO {
         }
     }
 
-    static void deleteDirectory(String name){
-        File dir = new File(name);
+    static void deleteDirectory(File dir){
         if (!dir.exists()) {
-            throw new IllegalArgumentException("directory with name " + name + " does not exist");
+            throw new IllegalArgumentException("directory does not exist");
         }
         if (!dir.isDirectory()) {
             throw new IllegalArgumentException(dir.getName() + " is not a directory");
@@ -47,10 +45,10 @@ final class FileIO {
 
     static void deleteFile(File file) {
         if (!file.exists()) {
-            throw new IllegalArgumentException("file with name " + file.getName() + " does not exist");
+            throw new IllegalArgumentException("file with name does not exist");
         }
         if (!file.isFile()) {
-            throw new IllegalArgumentException(file.getName() + " is not a file");
+            throw new IllegalArgumentException("is not a file");
         }
         delete(file);
     }
@@ -62,6 +60,10 @@ final class FileIO {
             System.out.println("permission denied: " + ex.getMessage());
             ex.printStackTrace();
         }
+    }
+
+    static File getSchemaLocation(String schemaName) {
+        return Paths.get(SchemaIO.DATABASE_LOCATION, schemaName).toFile();
     }
 
     static File convertToFile(String schemaName, String tableName) {
