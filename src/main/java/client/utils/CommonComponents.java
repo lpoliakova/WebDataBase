@@ -1,11 +1,45 @@
 package client.utils;
 
+import client.view.TableFrame;
+import database.Attribute;
+import database.Entry;
+import database.Table;
+
 import javax.swing.*;
+import java.awt.*;
+import java.util.*;
+import java.util.List;
 
 /**
  * Created by oradchykova on 10/29/17.
  */
 public class CommonComponents {
+
+    public static JPanel createCancelButton(JFrame frame) {
+        JPanel panel = new JPanel();
+        JButton cancelButton = new JButton("Cancel");
+        panel.add(cancelButton);
+        cancelButton.addActionListener(e -> {
+            EventQueue.invokeLater(TableFrame::new);
+            frame.setVisible(false);
+            frame.dispose();
+        });
+        return panel;
+    }
+
+    public static JPanel createTable(Table table) {
+        JPanel panel = new JPanel(new GridLayout(table.getEntries().size() + 1, table.getAttributes().size()));
+        List<Attribute> attributes = new ArrayList<>(table.getAttributes());
+        for (Attribute attribute : attributes) {
+            panel.add(createLabel(attribute.toString()));
+        }
+        for (Entry entry : table.getEntries()) {
+            for (Attribute attribute : attributes) {
+                panel.add(createLabel(entry.getEntry().get(attribute)));
+            }
+        }
+        return panel;
+    }
 
     public static JLabel createLabel(String text) {
         return new JLabel(convertToProperLabel(text));
@@ -22,4 +56,9 @@ public class CommonComponents {
         html.append("</div>").append("</html>");
         return html.toString();
     }
+
+    private static JLabel convertToTableLabel(String text) {
+        return new JLabel("<html><div style = \"border: 1px solid\">" + text + "</div></html>");
+    }
+
 }

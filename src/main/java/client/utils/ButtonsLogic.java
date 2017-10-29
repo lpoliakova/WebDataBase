@@ -37,7 +37,6 @@ public class ButtonsLogic {
     }
 
     public static void createTable(String tableName, Set<Attribute> attributes) {
-        //collect all values from table creation page
         Schema schema = WorkingSet.getCurrentSchema();
         Table table = new Table(tableName, attributes);
         schema.addTable(tableName, table); //TODO: distribute
@@ -46,18 +45,16 @@ public class ButtonsLogic {
     }
 
     public static void loadTable(String tableName) {
-        //collect all values from choose table page
         Schema schema = WorkingSet.getCurrentSchema();
         Table table = schema.readTableFromDatabase(tableName); //TODO: distribute
         WorkingSet.setCurrentTable(table);
-        //refresh table page, close choose table page
+        EventQueue.invokeLater(TableFrame::new);
     }
 
     public static void saveTable() {
         Schema schema = WorkingSet.getCurrentSchema();
         Table table = WorkingSet.getCurrentTable();
         schema.writeTableToDatabase(table.getName()); //TODO: distribute
-        //refresh table page
     }
 
     public static void deleteTable() {
@@ -65,7 +62,7 @@ public class ButtonsLogic {
         Table table = WorkingSet.getCurrentTable();
         schema.deleteTable(table.getName()); //TODO: distribute
         WorkingSet.setCurrentTable(null);
-        //refresh table page
+        EventQueue.invokeLater(TableFrame::new);
     }
 
     public static void addEntry(Map<Attribute, String> values) {
@@ -73,7 +70,8 @@ public class ButtonsLogic {
         Entry entry = Entry.create(values);
         Table table = WorkingSet.getCurrentTable();
         table.addEntry(entry);
-        //refresh table page, close entry page
+        EventQueue.invokeLater(TableFrame::new);
+        //close entry page
     }
 
     public static void deleteEntry(Map<Attribute, String> values) {
@@ -81,11 +79,11 @@ public class ButtonsLogic {
         Entry entry = Entry.create(values);
         Table table = WorkingSet.getCurrentTable();
         table.deleteEntry(entry);
-        //refresh table page, close entry page
+        EventQueue.invokeLater(TableFrame::new);
+        //close entry page
     }
 
-    public static Attribute addAtribute(String name, DatabaseTypes type) {
-        //collect all values from table create page
+    public static Attribute addAttribute(String name, DatabaseTypes type) {
         return new Attribute(name, type);
         //refresh create table page
     }

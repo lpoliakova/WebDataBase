@@ -75,7 +75,7 @@ public class Schema {
 
     public void deleteTable(String tableName) {
         if (tables.get(tableName) == null){
-            throw new IllegalArgumentException("table with name " + name + "does not exists");
+            throw new IllegalArgumentException("table with name " + name + " does not exists");
         }
         tables.remove(tableName);
         TableIO.deleteTable(this.name, tableName);
@@ -83,7 +83,7 @@ public class Schema {
 
     public Table readTableFromDatabase(String tableName) {
         if (tables.get(tableName) == null){
-            throw new IllegalArgumentException("table with name " + name + "does not exists");
+            throw new IllegalArgumentException("table with name " + name + " does not exists");
         }
         Table table = null;
         try {
@@ -92,12 +92,13 @@ public class Schema {
             System.out.println("error during table reading: " + ex.getMessage());
             ex.printStackTrace();
         }
+        tables.put(tableName, table);
         return table;
     }
 
     public void writeTableToDatabase(String tableName) {
         if (tables.get(tableName) == null){
-            throw new IllegalArgumentException("table with name " + name + "does not exists");
+            throw new IllegalArgumentException("table with name " + name + " does not exists");
         }
         try {
             TableIO.writeTable(this.name, tableName, tables.get(tableName));

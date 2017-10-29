@@ -50,7 +50,9 @@ public class TableFrame extends JFrame {
 
         JMenuItem loadTable = tableMenu.add("Load table");
         loadTable.addActionListener(e -> {
-            //TODO: show table selection
+            EventQueue.invokeLater(SelectTableFrame::new);
+            setVisible(false);
+            dispose();
         });
 
         JMenuItem saveTable = tableMenu.add("Save table");
@@ -59,25 +61,32 @@ public class TableFrame extends JFrame {
         JMenuItem deleteTable = tableMenu.add("Delete table");
         deleteTable.addActionListener(e -> {
             ButtonsLogic.deleteTable();
-            //TODO: update Table window
+            setVisible(false);
+            dispose();
+            //TODO: add confirmation
         });
 
         JMenu entryMenu = new JMenu("Entry");
         menuBar.add(entryMenu);
         JMenuItem addEntry = entryMenu.add("Add entry");
         addEntry.addActionListener(e -> {
-            //TODO: show entry creation
+            EventQueue.invokeLater(CreateEntryFrame::new);
+            setVisible(false);
+            dispose();
         });
 
         JMenuItem deleteEntry = entryMenu.add("Delete entry");
         deleteEntry.addActionListener(e -> {
-            //TODO: show entry selection
+            EventQueue.invokeLater(DeleteEntryFrame::new);
+            setVisible(false);
+            dispose();
         });
 
         JMenu switcher = new JMenu("View");
         menuBar.add(switcher);
         JMenuItem twoTables = switcher.add("Two tables representation");
         twoTables.setEnabled(false);
+        //TODO: create two table View
 
         return menuBar;
     }
@@ -89,11 +98,14 @@ public class TableFrame extends JFrame {
         panel.add(schemaInfo);
 
         Table table = WorkingSet.getCurrentTable();
-        JLabel tableInfo = CommonComponents.createLabel(table == null ? "Choose table" : table.toString());
-        panel.add(tableInfo);
+        if (table == null) {
+            panel.add(CommonComponents.createLabel("Choose table"));
+        } else {
+            JLabel tableInfo = CommonComponents.createLabel(table.toString());
+            panel.add(tableInfo);
 
-        //TODO: draw table;
-
+            panel.add(CommonComponents.createTable(table));
+        }
         return panel;
     }
 }

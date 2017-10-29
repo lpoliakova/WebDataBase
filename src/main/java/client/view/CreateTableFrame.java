@@ -35,7 +35,7 @@ public class CreateTableFrame extends JFrame{
         }
         panel.add(CommonComponents.createLabel("Add new attribute: "));
         panel.add(createAttributePanel());
-        panel.add(createCancel());
+        panel.add(CommonComponents.createCancelButton(this));
 
         setVisible(true);
     }
@@ -62,7 +62,7 @@ public class CreateTableFrame extends JFrame{
 
     private JPanel createCurrentAttributesList() {
         JPanel panel = new JPanel();
-        //TODO: draw table with attributes
+        //TODO: add existing attributes
         return panel;
     }
 
@@ -82,23 +82,11 @@ public class CreateTableFrame extends JFrame{
         JButton addButton = new JButton("Add");
         panel.add(addButton);
         addButton.addActionListener(e -> {
-            Attribute attribute = ButtonsLogic.addAtribute(attributeName.getText(), (DatabaseTypes) types.getSelectedItem());
+            Attribute attribute = ButtonsLogic.addAttribute(attributeName.getText(), (DatabaseTypes) types.getSelectedItem());
             attributes.add(attribute);
             //TODO: refresh table creation
         });
 
-        return panel;
-    }
-
-    private JPanel createCancel() {
-        JPanel panel = new JPanel();
-        JButton cancelButton = new JButton("Cancel");
-        panel.add(cancelButton);
-        cancelButton.addActionListener(e -> {
-            EventQueue.invokeLater(TableFrame::new);
-            setVisible(false);
-            dispose();
-        });
         return panel;
     }
 }
