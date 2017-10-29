@@ -7,10 +7,10 @@ import java.awt.*;
  */
 public class ViewConstants {
 
-    public static final int SMALL_WINDOW_WIDTH = 400;
+    public static final int SMALL_WINDOW_WIDTH = 500;
     public static final int SMALL_WINDOW_HEIGHT = 200;
 
-    public static final int STANDARD_WINDOW_WIDTH = 800;
+    public static final int STANDARD_WINDOW_WIDTH = 900;
     public static final int STANDARD_WINDOW_HEIGHT = 600;
 
     public static Point getSmallWindowLocation() {

@@ -42,7 +42,7 @@ public class ButtonsLogic {
         Table table = new Table(tableName, attributes);
         schema.addTable(tableName, table); //TODO: distribute
         WorkingSet.setCurrentTable(table);
-        //refresh table page, close table creation page
+        EventQueue.invokeLater(TableFrame::new);
     }
 
     public static void loadTable(String tableName) {

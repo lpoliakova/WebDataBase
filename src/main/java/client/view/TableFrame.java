@@ -1,6 +1,7 @@
 package client.view;
 
 import client.utils.ButtonsLogic;
+import client.utils.CommonComponents;
 import client.utils.ViewConstants;
 import client.utils.WorkingSet;
 import database.Table;
@@ -42,7 +43,9 @@ public class TableFrame extends JFrame {
         menuBar.add(tableMenu);
         JMenuItem createTable = tableMenu.add("Create new table");
         createTable.addActionListener(e -> {
-            //TODO: show table creation
+            EventQueue.invokeLater(CreateTableFrame::new);
+            setVisible(false);
+            dispose();
         });
 
         JMenuItem loadTable = tableMenu.add("Load table");
@@ -82,27 +85,15 @@ public class TableFrame extends JFrame {
     private JPanel drawTable() {
         JPanel panel = new JPanel(new GridLayout(3,1));
 
-        JLabel schemaInfo = new JLabel(convertString(WorkingSet.getCurrentSchema().toString()));
+        JLabel schemaInfo = CommonComponents.createLabel(WorkingSet.getCurrentSchema().toString());
         panel.add(schemaInfo);
 
         Table table = WorkingSet.getCurrentTable();
-        JLabel tableInfo = new JLabel(table == null ? convertString("Choose table") : convertString(table.toString()));
+        JLabel tableInfo = CommonComponents.createLabel(table == null ? "Choose table" : table.toString());
         panel.add(tableInfo);
 
         //TODO: draw table;
 
         return panel;
-    }
-
-    private String convertString(String text) {
-        StringBuilder html = new StringBuilder();
-        html.append("<html>").append("<div style = \"padding-left: 10px\">");
-        String[] lines = text.split(System.lineSeparator());
-        for (String line : lines) {
-            html.append(line).append("<br>");
-        }
-
-        html.append("</div>").append("</html>");
-        return html.toString();
     }
 }

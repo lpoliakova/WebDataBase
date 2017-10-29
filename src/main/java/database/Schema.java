@@ -109,7 +109,7 @@ public class Schema {
 
     @Override
     public String toString() {
-        return "Schema name = " + name + System.lineSeparator() +
-                "Number of entries = " + tables.size() + System.lineSeparator();
+        return "Schema name = '" + name + "'" + System.lineSeparator() +
+                "Number of tables = " + tables.size() + System.lineSeparator();
     }
 }
