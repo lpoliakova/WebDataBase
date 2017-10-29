@@ -2,9 +2,6 @@ package client.utils;
 
 import java.awt.*;
 
-/**
- * Created by oradchykova on 10/27/17.
- */
 public class ViewConstants {
 
     public static final int SMALL_WINDOW_WIDTH = 500;

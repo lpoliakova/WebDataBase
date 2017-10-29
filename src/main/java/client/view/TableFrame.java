@@ -9,9 +9,6 @@ import database.Table;
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * Created by oradchykova on 10/29/17.
- */
 public class TableFrame extends JFrame {
 
     public TableFrame() {

@@ -8,9 +8,6 @@ import java.awt.*;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * Created by oradchykova on 10/27/17.
- */
 public class ButtonsLogic {
 
     public static void createSchema(String name) {

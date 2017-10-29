@@ -13,13 +13,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-/**
- * Created by oradchykova on 10/29/17.
- */
-public class DeleteEntryFrame extends JFrame{
+class DeleteEntryFrame extends JFrame{
     private Map<Attribute, JTextField> textFields = new HashMap<>();
 
-    public DeleteEntryFrame() {
+    DeleteEntryFrame() {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setSize(ViewConstants.SMALL_WINDOW_WIDTH, ViewConstants.SMALL_WINDOW_HEIGHT);
         setTitle("Delete Entry");

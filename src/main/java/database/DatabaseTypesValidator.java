@@ -5,9 +5,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
 
-/**
- * Created by oradchykova on 10/25/17.
- */
 class DatabaseTypesValidator {
     static boolean validateEntry(Entry entry) {
         for (Map.Entry<Attribute, String> value : entry.getEntry().entrySet()) {

@@ -9,9 +9,6 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by oradchykova on 10/26/17.
- */
 public class StartFrame extends JFrame {
     private List<JRadioButton> schemaSelection = new ArrayList<>();
 

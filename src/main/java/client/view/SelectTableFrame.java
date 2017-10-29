@@ -9,11 +9,9 @@ import database.Table;
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * Created by oradchykova on 10/29/17.
- */
-public class SelectTableFrame extends JFrame{
-    public SelectTableFrame() {
+
+class SelectTableFrame extends JFrame{
+    SelectTableFrame() {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setSize(ViewConstants.SMALL_WINDOW_WIDTH, ViewConstants.SMALL_WINDOW_HEIGHT);
         setTitle("Create Table");

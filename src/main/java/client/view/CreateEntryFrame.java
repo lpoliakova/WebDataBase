@@ -11,13 +11,10 @@ import java.awt.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
-/**
- * Created by oradchykova on 10/29/17.
- */
-public class CreateEntryFrame extends JFrame{
+class CreateEntryFrame extends JFrame{
     private Map<Attribute, JTextField> textFields = new HashMap<>();
 
-    public CreateEntryFrame() {
+    CreateEntryFrame() {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setSize(ViewConstants.SMALL_WINDOW_WIDTH, ViewConstants.SMALL_WINDOW_HEIGHT);
         setTitle("Create Entry");

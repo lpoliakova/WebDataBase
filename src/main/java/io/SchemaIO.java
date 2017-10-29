@@ -1,6 +1,5 @@
 package io;
 
-import database.DatabaseTypes;
 import database.Schema;
 import database.Table;
 
@@ -12,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public final class SchemaIO {
-    public final static String DATABASE_LOCATION = "DATABASE";
+    final static String DATABASE_LOCATION = "DATABASE";
 
     public static List<String> listSchemaNames() {
         File db = new File(DATABASE_LOCATION);

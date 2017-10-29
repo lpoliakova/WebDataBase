@@ -10,9 +10,6 @@ import java.awt.*;
 import java.util.*;
 import java.util.List;
 
-/**
- * Created by oradchykova on 10/29/17.
- */
 public class CommonComponents {
 
     public static JPanel createCancelButton(JFrame frame) {
@@ -35,7 +32,7 @@ public class CommonComponents {
         }
         for (Entry entry : table.getEntries()) {
             for (Attribute attribute : attributes) {
-                panel.add(createLabel(entry.getEntry().get(attribute)));
+                panel.add(createLabel(entry.getValueByAttribute(attribute)));
             }
         }
         return panel;
@@ -55,10 +52,6 @@ public class CommonComponents {
 
         html.append("</div>").append("</html>");
         return html.toString();
-    }
-
-    private static JLabel convertToTableLabel(String text) {
-        return new JLabel("<html><div style = \"border: 1px solid\">" + text + "</div></html>");
     }
 
 }

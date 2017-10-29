@@ -10,7 +10,6 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -97,7 +96,7 @@ final class XmlOutput {
         writeTextNode(field.getValue(), value, doc);
     }
 
-    static void writeDocument(Document doc, File file) throws FileNotFoundException{
+    private void writeDocument(Document doc, File file) throws FileNotFoundException{
         try {
             Transformer transformer = TransformerFactory.newInstance().newTransformer();
 

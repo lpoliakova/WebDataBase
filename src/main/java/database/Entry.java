@@ -32,14 +32,6 @@ public class Entry {
         return values.get(attribute);
     }
 
-    public void setValueByAttribute(Attribute attribute, String newValue){
-        String oldValue = values.get(attribute);
-        if (oldValue == null) {
-            throw new IllegalArgumentException(attribute + " does not exist in this entry");
-        }
-        values.put(attribute, newValue);
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

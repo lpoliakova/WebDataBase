@@ -3,9 +3,6 @@ package client.utils;
 import database.Schema;
 import database.Table;
 
-/**
- * Created by oradchykova on 10/27/17.
- */
 public class WorkingSet {
 
     private static Schema currentSchema;

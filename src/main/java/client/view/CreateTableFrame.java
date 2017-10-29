@@ -12,13 +12,10 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by oradchykova on 10/29/17.
- */
-public class CreateTableFrame extends JFrame{
+class CreateTableFrame extends JFrame{
     private Set<Attribute> attributes = new HashSet<>();
 
-    public CreateTableFrame() {
+    CreateTableFrame() {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setSize(ViewConstants.SMALL_WINDOW_WIDTH, ViewConstants.SMALL_WINDOW_HEIGHT);
         setTitle("Create Table");
