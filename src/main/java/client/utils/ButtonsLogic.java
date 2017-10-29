@@ -1,7 +1,10 @@
 package client.utils;
 
+import client.view.StartFrame;
+import client.view.TableFrame;
 import database.*;
 
+import java.awt.*;
 import java.util.Map;
 import java.util.Set;
 
@@ -11,29 +14,26 @@ import java.util.Set;
 public class ButtonsLogic {
 
     public static void createSchema(String name) {
-        //collect all values from table creation page
         Schema schema = Schema.createSchema(name); //TODO: distribute
         WorkingSet.setCurrentSchema(schema);
-        //go to table page, close schema page
+        EventQueue.invokeLater(TableFrame::new);
     }
 
     public static void loadSchema(String name) {
-        //collect all values from table creation page
         Schema schema = Schema.loadSchema(name); //TODO: distribute
         WorkingSet.setCurrentSchema(schema);
-        //go to table page, close schema page
+        EventQueue.invokeLater(TableFrame::new);
     }
 
     public static void deleteSchema(String name) {
-        //collect all values from table creation page
-        Schema.deleteSchema(name); //TODO: distribute //TODO: fix Schema
+        Schema.deleteSchema(name); //TODO: distribute
         WorkingSet.setCurrentSchema(null);
-        //go to table page, close schema page
+        EventQueue.invokeLater(StartFrame::new);
     }
 
     public static void leaveSchema() {
         WorkingSet.setCurrentSchema(null);
-        //go to schema page
+        EventQueue.invokeLater(StartFrame::new);
     }
 
     public static void createTable(String tableName, Set<Attribute> attributes) {

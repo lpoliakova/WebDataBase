@@ -2,7 +2,6 @@ package client.view;
 
 import client.utils.ButtonsLogic;
 import client.utils.ViewConstants;
-import database.Schema;
 import io.SchemaIO;
 
 import javax.swing.*;
@@ -17,6 +16,7 @@ public class StartFrame extends JFrame {
     private List<JRadioButton> schemaSelection = new ArrayList<>();
 
     public StartFrame() {
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setSize(ViewConstants.SMALL_WINDOW_WIDTH, ViewConstants.SMALL_WINDOW_HEIGHT);
         setTitle("Start");
         setResizable(false);
@@ -26,6 +26,8 @@ public class StartFrame extends JFrame {
         panel.add(createSchemaActions());
         panel.add(createSchemaNameSpace());
         add(panel, BorderLayout.CENTER);
+
+        setVisible(true);
     }
 
     private JPanel createSchemaActions() {
@@ -79,12 +81,17 @@ public class StartFrame extends JFrame {
         ok.addActionListener(e -> {
             if (schemaSelection.get(0).isSelected()) {
                 ButtonsLogic.createSchema((String) nameField.getSelectedItem());
+                setVisible(false);
+                dispose();
             } else if (schemaSelection.get(1).isSelected()) {
                 ButtonsLogic.loadSchema((String) nameField.getSelectedItem());
+                setVisible(false);
+                dispose();
             } else if (schemaSelection.get(2).isSelected()) {
                 ButtonsLogic.deleteSchema((String) nameField.getSelectedItem());
+                setVisible(false);
+                dispose();
             }
-            //TODO: close this window, go to tables
         });
         return ok;
     }

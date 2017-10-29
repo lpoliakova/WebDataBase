@@ -106,4 +106,10 @@ public class Schema {
             ex.printStackTrace();
         }
     }
+
+    @Override
+    public String toString() {
+        return "Schema name = " + name + System.lineSeparator() +
+                "Number of entries = " + tables.size() + System.lineSeparator();
+    }
 }

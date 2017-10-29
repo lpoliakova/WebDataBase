@@ -11,10 +11,6 @@ import java.awt.*;
 public class EntryPoint {
 
     public static void main(String[] args) {
-        EventQueue.invokeLater(() -> {
-            StartFrame frame = new StartFrame();
-            frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-            frame.setVisible(true);
-        });
+        EventQueue.invokeLater(StartFrame::new);
     }
 }
