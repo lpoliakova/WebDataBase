@@ -1,4 +1,4 @@
-package io;
+package server.io;
 
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;

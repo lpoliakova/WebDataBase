@@ -4,7 +4,7 @@ import client.utils.ButtonsLogic;
 import client.utils.CommonComponents;
 import client.utils.ViewConstants;
 import client.utils.WorkingSet;
-import database.Table;
+import shared.database.Table;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,9 +1,9 @@
-package io;
+package server.io;
 
-import database.Attribute;
-import database.DatabaseTypes;
-import database.Entry;
-import database.Table;
+import shared.database.Attribute;
+import shared.database.DatabaseTypes;
+import shared.database.Entry;
+import shared.database.Table;
 import org.w3c.dom.CharacterData;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

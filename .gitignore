@@ -1,4 +1,6 @@
 *.iml
 target
 .idea
+.DS_Store
+orb.db
 DATABASE

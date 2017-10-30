@@ -2,10 +2,12 @@ package client.view;
 
 import client.utils.ButtonsLogic;
 import client.utils.ViewConstants;
-import io.SchemaIO;
+import client.utils.WorkingSet;
+import server.io.SchemaIO;
 
 import javax.swing.*;
 import java.awt.*;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,7 +68,13 @@ public class StartFrame extends JFrame {
         comboBox.setPreferredSize(
                 new Dimension(ViewConstants.SMALL_WINDOW_WIDTH / 2, ViewConstants.SMALL_WINDOW_HEIGHT / 8));
 
-        List<String> schemas = SchemaIO.listSchemaNames();
+        List<String> schemas = new ArrayList<>();
+        try {
+            schemas = WorkingSet.getDbServer().listSchemaNames();
+        } catch (RemoteException ex) {
+            System.out.println("Connection error " + ex);
+            ex.printStackTrace();
+        }
         for (String schema : schemas) {
             comboBox.addItem(schema);
         }

@@ -1,9 +1,9 @@
 package client.utils;
 
 import client.view.TableFrame;
-import database.Attribute;
-import database.Entry;
-import database.Table;
+import shared.database.Attribute;
+import shared.database.Entry;
+import shared.database.Table;
 
 import javax.swing.*;
 import java.awt.*;
