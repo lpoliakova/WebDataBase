@@ -1,7 +1,7 @@
 package databaseTests;
 
-import shared.database.Schema;
-import shared.database.Table;
+import shared.Schema;
+import shared.Table;
 import org.junit.Assert;
 import org.junit.Test;
 import utils.TableTestExamples;

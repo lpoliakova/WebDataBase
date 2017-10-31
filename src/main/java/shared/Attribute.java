@@ -1,4 +1,4 @@
-package shared.database;
+package shared;
 
 public class Attribute {
     private final String name;

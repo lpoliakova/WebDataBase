@@ -1,9 +1,9 @@
 package utils;
 
-import shared.database.Attribute;
-import shared.database.DatabaseTypes;
-import shared.database.Entry;
-import shared.database.Table;
+import shared.Attribute;
+import shared.DatabaseTypes;
+import shared.Entry;
+import shared.Table;
 
 import java.util.HashMap;
 import java.util.HashSet;

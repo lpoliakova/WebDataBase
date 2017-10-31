@@ -9,22 +9,24 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.rmi.PortableRemoteObject;
 import java.awt.*;
+import java.rmi.Naming;
 
 public class EntryPoint {
 
     public static void main(String[] args) {
         try {
-            createClientConnection();
+            //createClientIiopConnection();
+            createClientRmpConnection();
             EventQueue.invokeLater(StartFrame::new);
 
-        } catch (NamingException ex) {
+        } catch (Exception ex) {
             System.out.println("Connection error " + ex);
             ex.printStackTrace();
             return;
         }
     }
 
-    private static void createClientConnection() throws NamingException{
+    private static void createClientIiopConnection() throws NamingException{
         Context ic;
         Object objref;
         DatabaseInterface dbServer;
@@ -43,5 +45,10 @@ public class EntryPoint {
 
         WorkingSet.setDbServer(dbServer);
 
+    }
+
+    private static void createClientRmpConnection() throws Exception{
+        DatabaseInterface dbServer = (DatabaseInterface) Naming.lookup("rmi://localhost:1099/DatabaseService");
+        WorkingSet.setDbServer(dbServer);
     }
 }

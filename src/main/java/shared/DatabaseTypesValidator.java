@@ -1,4 +1,4 @@
-package shared.database;
+package shared;
 
 import java.net.URI;
 import java.nio.file.Path;

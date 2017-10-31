@@ -1,7 +1,7 @@
 package client.utils;
 
-import shared.database.Schema;
-import shared.database.Table;
+import shared.Schema;
+import shared.Table;
 import server.api.DatabaseInterface;
 
 public class WorkingSet {

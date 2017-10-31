@@ -1,12 +1,13 @@
-package server.api;
+package server.api.iiop;
 
+import server.api.DatabaseInterface;
 import server.io.SchemaIO;
 
 import javax.rmi.PortableRemoteObject;
 import java.rmi.RemoteException;
 import java.util.List;
 
-public class DatabaseImpl extends PortableRemoteObject implements DatabaseInterface{
+public class DatabaseImpl extends PortableRemoteObject implements DatabaseInterface {
 
     public DatabaseImpl() throws RemoteException {
         super();

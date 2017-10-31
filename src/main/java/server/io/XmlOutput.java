@@ -1,8 +1,8 @@
 package server.io;
 
-import shared.database.Attribute;
-import shared.database.Entry;
-import shared.database.Table;
+import shared.Attribute;
+import shared.Entry;
+import shared.Table;
 import org.w3c.dom.*;
 
 import javax.xml.transform.*;

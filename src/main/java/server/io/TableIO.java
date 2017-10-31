@@ -1,6 +1,6 @@
 package server.io;
 
-import shared.database.Table;
+import shared.Table;
 
 import java.io.File;
 import java.io.IOException;

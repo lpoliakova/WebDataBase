@@ -1,7 +1,7 @@
 package server.io;
 
-import shared.database.Schema;
-import shared.database.Table;
+import shared.Schema;
+import shared.Table;
 
 import java.io.File;
 import java.io.IOException;

@@ -1,6 +1,7 @@
 package ioTests;
 
-import shared.database.*;
+import shared.Schema;
+import shared.Table;
 import org.junit.Assert;
 import org.junit.Test;
 import utils.TableTestExamples;

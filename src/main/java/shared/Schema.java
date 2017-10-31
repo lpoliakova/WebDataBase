@@ -1,4 +1,4 @@
-package shared.database;
+package shared;
 
 import server.io.SchemaIO;
 import server.io.TableIO;

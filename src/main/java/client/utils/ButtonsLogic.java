@@ -2,7 +2,7 @@ package client.utils;
 
 import client.view.StartFrame;
 import client.view.TableFrame;
-import shared.database.*;
+import shared.*;
 
 import java.awt.*;
 import java.util.Map;

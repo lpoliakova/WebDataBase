@@ -1,4 +1,4 @@
-package server.api;
+package server.api.iiop;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;

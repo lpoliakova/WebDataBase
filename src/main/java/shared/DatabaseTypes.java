@@ -1,4 +1,4 @@
-package shared.database;
+package shared;
 
 public enum DatabaseTypes {
     INT,

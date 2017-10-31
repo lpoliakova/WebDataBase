@@ -3,8 +3,8 @@ package client.view;
 import client.utils.ButtonsLogic;
 import client.utils.CommonComponents;
 import client.utils.ViewConstants;
-import shared.database.Attribute;
-import shared.database.DatabaseTypes;
+import shared.Attribute;
+import shared.DatabaseTypes;
 
 import javax.swing.*;
 import java.awt.*;

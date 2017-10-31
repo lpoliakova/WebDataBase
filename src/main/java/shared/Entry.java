@@ -1,4 +1,4 @@
-package shared.database;
+package shared;
 
 import java.util.*;
 
