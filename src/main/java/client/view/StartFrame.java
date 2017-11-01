@@ -1,6 +1,7 @@
 package client.view;
 
 import client.utils.ButtonsLogic;
+import client.utils.ServerConnection;
 import client.utils.ViewConstants;
 import client.utils.WorkingSet;
 import server.io.SchemaIO;
@@ -70,7 +71,7 @@ public class StartFrame extends JFrame {
 
         List<String> schemas = new ArrayList<>();
         try {
-            schemas = WorkingSet.getDbServer().listSchemaNames();
+            schemas = ServerConnection.getDbServer().listSchemaNames();
         } catch (RemoteException ex) {
             System.out.println("Connection error " + ex);
             ex.printStackTrace();

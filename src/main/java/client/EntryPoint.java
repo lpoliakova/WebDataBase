@@ -1,5 +1,6 @@
 package client;
 
+import client.utils.ServerConnection;
 import client.utils.WorkingSet;
 import client.view.StartFrame;
 import server.api.DatabaseInterface;
@@ -43,12 +44,12 @@ public class EntryPoint {
         dbServer = (DatabaseInterface) PortableRemoteObject.narrow(
                 objref, DatabaseInterface.class);
 
-        WorkingSet.setDbServer(dbServer);
+        ServerConnection.setDbServer(dbServer);
 
     }
 
     private static void createClientRmpConnection() throws Exception{
         DatabaseInterface dbServer = (DatabaseInterface) Naming.lookup("rmi://localhost:1099/DatabaseService");
-        WorkingSet.setDbServer(dbServer);
+        ServerConnection.setDbServer(dbServer);
     }
 }

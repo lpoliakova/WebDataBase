@@ -11,7 +11,7 @@ public class DatabaseServer {
     public DatabaseServer() {
         try {
             DatabaseInterface dbRef = new DatabaseImpl();
-            Naming.rebind("rmi://localhost:1099/DatabaseService", dbRef);
+            Naming.rebind("rmi://0.0.0.0:1099/DatabaseService", dbRef);
 
             System.out.println("Database Server: Ready...");
 
