@@ -89,19 +89,21 @@ public class TableFrame extends JFrame {
     }
 
     private JPanel drawTable() {
-        JPanel panel = new JPanel(new GridLayout(3,1));
+        JPanel panel = new JPanel();
+        JPanel labelPanel = new JPanel(new GridLayout(2, 1));
+        panel.add(labelPanel, BorderLayout.PAGE_START);
 
         JLabel schemaInfo = CommonComponents.createLabel(WorkingSet.getCurrentSchema().toString());
-        panel.add(schemaInfo);
+        labelPanel.add(schemaInfo);
 
         Table table = WorkingSet.getCurrentTable();
         if (table == null) {
-            panel.add(CommonComponents.createLabel("Choose table"));
+            labelPanel.add(CommonComponents.createLabel("Choose table"));
         } else {
             JLabel tableInfo = CommonComponents.createLabel(table.toString());
-            panel.add(tableInfo);
+            labelPanel.add(tableInfo);
 
-            panel.add(CommonComponents.createTable(table));
+            panel.add(CommonComponents.createTable(table), BorderLayout.CENTER);
         }
         return panel;
     }

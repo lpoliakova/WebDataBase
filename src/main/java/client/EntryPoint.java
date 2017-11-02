@@ -1,5 +1,6 @@
 package client;
 
+import client.utils.CommonComponents;
 import client.utils.ServerConnection;
 import client.utils.WorkingSet;
 import client.view.StartFrame;
@@ -18,12 +19,11 @@ public class EntryPoint {
         try {
             createClientRmpConnection();
             EventQueue.invokeLater(StartFrame::new);
-
+            throw new IllegalAccessException();
         } catch (Exception ex) {
-            System.out.println("Connection error " + ex);
-            ex.printStackTrace();
-            return;
+            CommonComponents.showConnectionException(ex);
         }
+
     }
 
     private static void createClientIiopConnection() throws NamingException{

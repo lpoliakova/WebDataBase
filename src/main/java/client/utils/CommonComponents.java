@@ -1,5 +1,6 @@
 package client.utils;
 
+import client.view.ExceptionFrame;
 import client.view.TableFrame;
 import shared.Attribute;
 import shared.Entry;
@@ -24,18 +25,17 @@ public class CommonComponents {
         return panel;
     }
 
-    public static JPanel createTable(Table table) {
-        JPanel panel = new JPanel(new GridLayout(table.getEntries().size() + 1, table.getAttributes().size()));
+    public static JScrollPane createTable(Table table) {
         List<Attribute> attributes = new ArrayList<>(table.getAttributes());
-        for (Attribute attribute : attributes) {
-            panel.add(createLabel(attribute.toString()));
-        }
-        for (Entry entry : table.getEntries()) {
-            for (Attribute attribute : attributes) {
-                panel.add(createLabel(entry.getValueByAttribute(attribute)));
-            }
-        }
-        return panel;
+        String[] columnNames = attributes.stream().map(Attribute::getName).toArray(String[]::new);
+        String[][] rowData = table.getEntries().stream().map(e ->
+                attributes.stream().map(e::getValueByAttribute).toArray(String[]::new))
+                .toArray(String[][]::new);
+
+        JTable tableView = new JTable(rowData, columnNames);
+        tableView.setShowGrid(true);
+
+        return new JScrollPane(tableView);
     }
 
     public static JLabel createLabel(String text) {
@@ -52,6 +52,12 @@ public class CommonComponents {
 
         html.append("</div>").append("</html>");
         return html.toString();
+    }
+
+    public static void showConnectionException(Exception ex) {
+        ExceptionFrame.showException("An error occurred while connecting to the server!");
+        System.out.println(ex);
+        ex.printStackTrace();
     }
 
 }
