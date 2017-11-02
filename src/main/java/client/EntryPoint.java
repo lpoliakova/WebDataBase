@@ -19,7 +19,6 @@ public class EntryPoint {
         try {
             createClientRmpConnection();
             EventQueue.invokeLater(StartFrame::new);
-            throw new IllegalAccessException();
         } catch (Exception ex) {
             CommonComponents.showConnectionException(ex);
         }
