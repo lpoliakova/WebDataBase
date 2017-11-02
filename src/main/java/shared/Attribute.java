@@ -1,6 +1,8 @@
 package shared;
 
-public class Attribute {
+import java.io.Serializable;
+
+public class Attribute implements Serializable{
     private final String name;
     private final DatabaseTypes type;
 

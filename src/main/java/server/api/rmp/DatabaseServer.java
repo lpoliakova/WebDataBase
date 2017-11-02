@@ -4,9 +4,6 @@ import server.api.DatabaseInterface;
 
 import java.rmi.Naming;
 
-/**
- * Created by oradchykova on 10/31/17.
- */
 public class DatabaseServer {
     public DatabaseServer() {
         try {

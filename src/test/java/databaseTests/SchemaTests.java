@@ -1,5 +1,7 @@
 package databaseTests;
 
+import server.io.SchemaIO;
+import server.io.TableIO;
 import shared.Schema;
 import shared.Table;
 import org.junit.Assert;
@@ -12,20 +14,24 @@ import utils.TableTestExamples;
 public class SchemaTests {
     @Test
     public void schemaWorkflowTest() {
-        String schemaName = "peopleDB";
-        Schema schema = Schema.createSchema(schemaName);
-        Table table = TableTestExamples.createArturMikeTable();
-        schema.addTable(table.getName(), table);
+        try {
+            String schemaName = "peopleDB";
+            Schema schema = new Schema(schemaName);
+            SchemaIO.createSchema(schemaName);
+            Table table = TableTestExamples.createArturMikeTable();
+            schema.addTable(table.getName(), table);
+            TableIO.writeTable(schemaName, table.getName(), table);
 
-        Table actualTable = schema.readTableFromDatabase(table.getName());
-        Assert.assertEquals(table, actualTable);
+            Schema actualSchema = new Schema(schemaName);
+            SchemaIO.loadSchema(actualSchema);
+            Assert.assertEquals(table, actualSchema.getTables().get(table.getName()));
 
-        Schema actualSchema = Schema.loadSchema(schema.getName());
-        Assert.assertEquals(table, actualSchema.getTables().get(table.getName()));
+            schema.deleteTable(table.getName());
+            Assert.assertNull(schema.getTables().get(table.getName()));
 
-        schema.deleteTable(table.getName());
-        Assert.assertNull(schema.getTables().get(table.getName()));
-
-        Schema.deleteSchema(schema.getName());
+            SchemaIO.deleteSchema(schema.getName());
+        } catch (Exception ex) {
+            Assert.assertFalse(true);
+        }
     }
 }

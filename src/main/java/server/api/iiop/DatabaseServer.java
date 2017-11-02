@@ -17,7 +17,7 @@ public class DatabaseServer {
             System.out.println("Database Server: Ready...");
 
         } catch (Exception ex) {
-            System.out.println("Connection trouble: " + ex);
+            System.out.println("Connection error: " + ex);
             ex.printStackTrace();
         }
     }

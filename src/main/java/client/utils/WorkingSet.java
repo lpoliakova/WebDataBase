@@ -2,12 +2,12 @@ package client.utils;
 
 import shared.Schema;
 import shared.Table;
-import server.api.DatabaseInterface;
 
 public class WorkingSet {
 
     private static Schema currentSchema;
     private static Table currentTable;
+    private static ServerConnection connection;
 
     public synchronized static Schema getCurrentSchema() {
         return currentSchema;
@@ -25,4 +25,11 @@ public class WorkingSet {
         WorkingSet.currentTable = currentTable;
     }
 
+    public static ServerConnection getConnection() {
+        return connection;
+    }
+
+    public static void setConnection(ServerConnection connection) {
+        WorkingSet.connection = connection;
+    }
 }

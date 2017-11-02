@@ -16,7 +16,6 @@ public class EntryPoint {
 
     public static void main(String[] args) {
         try {
-            //createClientIiopConnection();
             createClientRmpConnection();
             EventQueue.invokeLater(StartFrame::new);
 
@@ -44,12 +43,12 @@ public class EntryPoint {
         dbServer = (DatabaseInterface) PortableRemoteObject.narrow(
                 objref, DatabaseInterface.class);
 
-        ServerConnection.setDbServer(dbServer);
+        WorkingSet.setConnection(new ServerConnection(dbServer));
 
     }
 
     private static void createClientRmpConnection() throws Exception{
         DatabaseInterface dbServer = (DatabaseInterface) Naming.lookup("rmi://localhost:1099/DatabaseService");
-        ServerConnection.setDbServer(dbServer);
+        WorkingSet.setConnection(new ServerConnection(dbServer));
     }
 }

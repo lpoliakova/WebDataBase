@@ -1,10 +1,11 @@
 package shared;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class Table {
+public class Table implements Serializable{
     private final String name;
     private final Set<Attribute> attributes;
     private List<Entry> entries;

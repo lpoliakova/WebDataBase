@@ -1,39 +1,15 @@
 package shared;
 
-import server.io.SchemaIO;
-import server.io.TableIO;
-
-import java.io.IOException;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class Schema {
+public class Schema implements Serializable{
     private String name;
     private Map<String, Table> tables;
 
-    public static Schema createSchema(String name) {
-        Schema schema = new Schema(name);
-        SchemaIO.createSchema(schema.getName());
-        return schema;
-    }
-
-    public static Schema loadSchema(String name) {
-        Schema schema = new Schema(name);
-        try {
-            SchemaIO.loadSchema(schema);
-        } catch (IOException ex) {
-            System.out.println("error during schema loading: " + ex.getMessage());
-            ex.printStackTrace();
-        }
-        return schema;
-    }
-
-    public static void deleteSchema(String schemaName) {
-        SchemaIO.deleteSchema(schemaName);
-    }
-
-    private Schema(String name) {
+    public Schema(String name) {
         this.name = name;
         tables = new HashMap<>();
     }
@@ -51,12 +27,6 @@ public class Schema {
             throw new IllegalArgumentException("table with name " + name + " already exists");
         }
         tables.put(tableName, table);
-        try {
-            TableIO.writeTable(this.name, tableName, table);
-        } catch (IOException ex) {
-            System.out.println("error during table write down: " + ex.getMessage());
-            ex.printStackTrace();
-        }
     }
 
     public void addTable(String tableName, Set<Attribute> attributes) {
@@ -65,47 +35,21 @@ public class Schema {
         }
         Table table = new Table(name, attributes);
         tables.put(tableName, table);
-        try {
-            TableIO.writeTable(this.name, tableName, table);
-        } catch (IOException ex) {
-            System.out.println("error during table write down: " + ex.getMessage());
-            ex.printStackTrace();
+    }
+
+    public Table getTable(String tableName) {
+        Table table = tables.get(tableName);
+        if (table == null){
+            throw new IllegalArgumentException("table with name " + name + " does not exist");
         }
+        return table;
     }
 
     public void deleteTable(String tableName) {
         if (tables.get(tableName) == null){
-            throw new IllegalArgumentException("table with name " + name + " does not exists");
+            throw new IllegalArgumentException("table with name " + name + " does not exist");
         }
         tables.remove(tableName);
-        TableIO.deleteTable(this.name, tableName);
-    }
-
-    public Table readTableFromDatabase(String tableName) {
-        if (tables.get(tableName) == null){
-            throw new IllegalArgumentException("table with name " + name + " does not exists");
-        }
-        Table table = null;
-        try {
-           table =  TableIO.readTable(this.name, tableName);
-        } catch (IOException ex) {
-            System.out.println("error during table reading: " + ex.getMessage());
-            ex.printStackTrace();
-        }
-        tables.put(tableName, table);
-        return table;
-    }
-
-    public void writeTableToDatabase(String tableName) {
-        if (tables.get(tableName) == null){
-            throw new IllegalArgumentException("table with name " + name + " does not exists");
-        }
-        try {
-            TableIO.writeTable(this.name, tableName, tables.get(tableName));
-        } catch (IOException ex) {
-            System.out.println("error during table write down: " + ex.getMessage());
-            ex.printStackTrace();
-        }
     }
 
     @Override

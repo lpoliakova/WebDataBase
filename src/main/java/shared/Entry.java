@@ -1,8 +1,9 @@
 package shared;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Entry {
+public class Entry implements Serializable{
     private Map<Attribute, String> values = new HashMap<>();
 
     public static Entry create(Map<Attribute, String> values) {
