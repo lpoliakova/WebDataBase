@@ -12,12 +12,14 @@ import javax.naming.NamingException;
 import javax.rmi.PortableRemoteObject;
 import java.awt.*;
 import java.rmi.Naming;
+import java.util.Hashtable;
 
 public class EntryPoint {
 
     public static void main(String[] args) {
         try {
             createClientRmpConnection();
+            //createClientIiopConnection();
             EventQueue.invokeLater(StartFrame::new);
         } catch (Exception ex) {
             CommonComponents.showConnectionException(ex);
@@ -26,20 +28,16 @@ public class EntryPoint {
     }
 
     private static void createClientIiopConnection() throws NamingException{
-        Context ic;
-        Object objref;
-        DatabaseInterface dbServer;
-
-        ic = new InitialContext();
+        Context ic = new InitialContext();
 
         // STEP 1: Get the Object reference from the Name Service
         // using JNDI call.
-        objref = ic.lookup("DatabaseService");
+        Object objref = ic.lookup("DatabaseService");
         System.out.println("Client: Obtained a ref. to Database server.");
 
         // STEP 2: Narrow the object reference to the concrete type and
         // invoke the method.
-        dbServer = (DatabaseInterface) PortableRemoteObject.narrow(
+        DatabaseInterface dbServer = (DatabaseInterface) PortableRemoteObject.narrow(
                 objref, DatabaseInterface.class);
 
         WorkingSet.setConnection(new ServerConnection(dbServer));
