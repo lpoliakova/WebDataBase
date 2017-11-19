@@ -1,14 +1,18 @@
 package shared;
 
+import javax.xml.bind.annotation.XmlElement;
 import java.io.Serializable;
 import java.util.*;
 
 public class Entry implements Serializable{
+    @XmlElement
     private Map<Attribute, String> values = new HashMap<>();
+
+    private Entry() {}
 
     public static Entry create(Map<Attribute, String> values) {
         if (!DatabaseTypesValidator.validate(values)) {
-            throw new IllegalArgumentException("entry values do not corespond to their types");
+            throw new IllegalArgumentException("entry values do not correspond to their types");
         }
         return new Entry(values);
     }

@@ -1,10 +1,18 @@
 package shared;
 
+import javax.xml.bind.annotation.XmlElement;
 import java.io.Serializable;
 
 public class Attribute implements Serializable{
+    @XmlElement
     private final String name;
+    @XmlElement
     private final DatabaseTypes type;
+
+    private Attribute() {
+        name = "";
+        type = DatabaseTypes.INT;
+    }
 
     public Attribute(String name, DatabaseTypes type) {
         this.name = name;

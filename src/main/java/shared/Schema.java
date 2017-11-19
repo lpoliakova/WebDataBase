@@ -1,13 +1,20 @@
 package shared;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+@XmlRootElement
 public class Schema implements Serializable{
+    @XmlElement
     private String name;
+    @XmlElement
     private Map<String, Table> tables;
+
+    private Schema() {}
 
     public Schema(String name) {
         this.name = name;

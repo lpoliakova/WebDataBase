@@ -1,14 +1,24 @@
 package shared;
 
+import javax.xml.bind.annotation.XmlElement;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public class Table implements Serializable{
+    @XmlElement
     private final String name;
+    @XmlElement
     private final Set<Attribute> attributes;
+    @XmlElement
     private List<Entry> entries;
+
+    private Table() {
+        name = "";
+        attributes = new HashSet<>();
+    }
 
     public Table(String name, Set<Attribute> attributes) {
         this.name = name;
