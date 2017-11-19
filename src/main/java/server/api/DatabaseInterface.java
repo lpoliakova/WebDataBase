@@ -9,7 +9,7 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 public interface DatabaseInterface extends Remote {
-    List<String> listSchemaNames() throws RemoteException;
+    String[] listSchemaNames() throws RemoteException;
 
     void createSchema(String name) throws RemoteException;
 

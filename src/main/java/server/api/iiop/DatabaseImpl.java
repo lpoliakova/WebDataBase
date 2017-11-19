@@ -18,7 +18,7 @@ public class DatabaseImpl extends PortableRemoteObject implements DatabaseInterf
     }
 
     @Override
-    public List<String> listSchemaNames() throws RemoteException {
+    public String[] listSchemaNames() throws RemoteException {
         System.out.println("listing schemas");
         return SchemaIO.listSchemaNames();
     }

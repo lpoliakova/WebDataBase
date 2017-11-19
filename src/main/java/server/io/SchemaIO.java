@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public final class SchemaIO {
     final static String DATABASE_LOCATION = "DATABASE";
 
-    public static List<String> listSchemaNames() {
+    public static String[] listSchemaNames() {
         File db = new File(DATABASE_LOCATION);
 
         if (!db.exists()) {
@@ -25,9 +25,9 @@ public final class SchemaIO {
             return Arrays.stream(files)
                     .filter(File::isDirectory)
                     .map(File::getName)
-                    .collect(Collectors.toList());
+                    .toArray(String[]::new);
         }
-        return new ArrayList<>();
+        return new String[0];
     }
 
     public static void createSchema(String name) {

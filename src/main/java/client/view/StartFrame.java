@@ -66,7 +66,7 @@ public class StartFrame extends JFrame {
         comboBox.setPreferredSize(
                 new Dimension(ViewConstants.SMALL_WINDOW_WIDTH / 2, ViewConstants.SMALL_WINDOW_HEIGHT / 8));
 
-        List<String> schemas = WorkingSet.getConnection().listSchemaNames();
+        String[] schemas = WorkingSet.getConnection().listSchemaNames();
         for (String schema : schemas) {
             comboBox.addItem(schema);
         }

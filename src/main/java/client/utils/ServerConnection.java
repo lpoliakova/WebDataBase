@@ -17,8 +17,8 @@ public class ServerConnection {
 
     // TODO: do not catch exceptions
 
-    public List<String> listSchemaNames() {
-        List<String> schemaNames = new ArrayList<>();
+    public String[] listSchemaNames() {
+        String[] schemaNames = new String[0];
         try {
             schemaNames = dbServer.listSchemaNames();
         } catch (IOException ex) {
