@@ -5,7 +5,6 @@ import client.utils.ServerConnection;
 import client.utils.WorkingSet;
 import client.view.StartFrame;
 import server.api.DatabaseInterface;
-import server.api.soap.DatabaseService;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -14,10 +13,8 @@ import javax.rmi.PortableRemoteObject;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 import java.awt.*;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.rmi.Naming;
-import java.util.Hashtable;
 
 public class EntryPoint {
 
@@ -26,7 +23,7 @@ public class EntryPoint {
             //createClientRmpConnection();
             //createClientIiopConnection();
             createClientSOAPConnection();
-            //EventQueue.invokeLater(StartFrame::new);
+            EventQueue.invokeLater(StartFrame::new);
         } catch (Exception ex) {
             CommonComponents.showConnectionException(ex);
         }
@@ -55,12 +52,11 @@ public class EntryPoint {
         WorkingSet.setConnection(new ServerConnection(dbServer));
     }
 
-    private static void createClientSOAPConnection() throws MalformedURLException{
+    private static void createClientSOAPConnection() throws Exception{
         URL url = new URL("http://localhost:8888/ws_database");
         QName qname = new QName("http://soap.api.server/", "DatabaseServiceService");
         Service service = Service.create(url, qname);
         server.api.soap.DatabaseInterface dbService = service.getPort(server.api.soap.DatabaseInterface.class);
-        dbService.createSchema("subjects");
-        dbService.deleteSchema("subjects");
+        WorkingSet.setConnection(new ServerConnection(dbService));
     }
 }

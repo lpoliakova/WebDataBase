@@ -1,6 +1,7 @@
 package shared;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -18,6 +19,7 @@ public class Table implements Serializable{
     private Table() {
         name = "";
         attributes = new HashSet<>();
+        entries = new ArrayList<>();
     }
 
     public Table(String name, Set<Attribute> attributes) {
