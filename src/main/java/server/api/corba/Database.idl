@@ -1,0 +1,39 @@
+module generated {
+
+    typedef sequence<string> StringArray;
+
+    struct MapEntry {
+        string key;
+        string value;
+     };
+
+    typedef sequence<MapEntry> Entry;
+
+    struct TransferTable {
+        string name;
+        StringArray attributes;
+        sequence<Entry> entries;
+    };
+
+    struct TransferSchema {
+        string name;
+        sequence<TransferTable> tables;
+    };
+
+    interface DatabaseInterface {
+
+        StringArray listSchemaNames();
+
+        void createSchema(in string name);
+
+        TransferSchema loadSchema(in string name);
+
+        void deleteSchema(in string name);
+
+        TransferTable readTable(in string schemaName, in string tableName);
+
+        void writeTable(in string schemaName, in TransferTable table);
+
+        void deleteTable(in string schemaName, in string tableName);
+    };
+};

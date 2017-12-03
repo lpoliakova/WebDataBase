@@ -4,7 +4,12 @@ import client.utils.CommonComponents;
 import client.utils.ServerConnection;
 import client.utils.WorkingSet;
 import client.view.StartFrame;
+import org.omg.CORBA.ORB;
+import org.omg.CosNaming.NamingContextExt;
+import org.omg.CosNaming.NamingContextExtHelper;
 import server.api.DatabaseInterface;
+import server.api.corba.DatabaseImplBridge;
+import server.api.corba.generated.DatabaseInterfaceHelper;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -22,7 +27,8 @@ public class EntryPoint {
         try {
             //createClientRmpConnection();
             //createClientIiopConnection();
-            createClientSOAPConnection();
+            //createClientSOAPConnection();
+            createClientCORBAConnection();
             EventQueue.invokeLater(StartFrame::new);
         } catch (Exception ex) {
             CommonComponents.showConnectionException(ex);
@@ -58,5 +64,30 @@ public class EntryPoint {
         Service service = Service.create(url, qname);
         server.api.soap.DatabaseInterface dbService = service.getPort(server.api.soap.DatabaseInterface.class);
         WorkingSet.setConnection(new ServerConnection(dbService));
+    }
+
+    private static void createClientCORBAConnection() throws Exception {
+        try{
+            // create and initialize the ORB
+            String[] parameters = {"-ORBInitialPort", "1050", "-ORBInitialHost", "localhost"};
+            ORB orb = ORB.init(parameters, null);
+
+            // get the root naming context
+            org.omg.CORBA.Object objRef = orb.resolve_initial_references("NameService");
+            // Use NamingContextExt instead of NamingContext. This is
+            // part of the Interoperable naming Service.
+            NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
+
+            // resolve the Object Reference in Naming
+            String name = "Database";
+            server.api.corba.generated.DatabaseInterface dbService = DatabaseInterfaceHelper.narrow(ncRef.resolve_str(name));
+
+            System.out.println("Obtained a handle on server object: " + dbService);
+
+            WorkingSet.setConnection(new ServerConnection(new DatabaseImplBridge(dbService)));
+        } catch (Exception e) {
+            System.out.println("ERROR : " + e) ;
+            e.printStackTrace(System.out);
+        }
     }
 }
