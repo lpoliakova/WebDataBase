@@ -49,7 +49,6 @@ public class Attribute implements Serializable{
     public String toString() {
         return "Attribute: " +
                 "name = '" + name + '\'' +
-                ", type = " + type +
-                " ";
+                ", type = " + type;
     }
 }
