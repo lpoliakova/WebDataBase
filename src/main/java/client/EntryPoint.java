@@ -28,7 +28,8 @@ public class EntryPoint {
             //createClientRmpConnection();
             //createClientIiopConnection();
             //createClientSOAPConnection();
-            createClientCORBAConnection();
+            //createClientCORBAConnection();
+            createClientIiopToCorbaConnection();
             EventQueue.invokeLater(StartFrame::new);
         } catch (Exception ex) {
             CommonComponents.showConnectionException(ex);
@@ -90,4 +91,22 @@ public class EntryPoint {
             e.printStackTrace(System.out);
         }
     }
+
+    private static void createClientIiopToCorbaConnection() throws NamingException{
+        Context ic = new InitialContext();
+
+        // STEP 1: Get the Object reference from the Name Service
+        // using JNDI call.
+        Object objref = ic.lookup("Database");
+        System.out.println("Client: Obtained a ref. to Database server.");
+
+        // STEP 2: Narrow the object reference to the concrete type and
+        // invoke the method.
+        server.api.corba.generated.DatabaseInterface dbServer = (server.api.corba.generated.DatabaseInterface) PortableRemoteObject.narrow(
+                objref, server.api.corba.generated.DatabaseInterface.class);
+
+        WorkingSet.setConnection(new ServerConnection(new DatabaseImplBridge(dbServer)));
+
+    }
+
 }
