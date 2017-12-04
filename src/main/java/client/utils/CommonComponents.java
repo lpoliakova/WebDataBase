@@ -25,6 +25,25 @@ public class CommonComponents {
         return panel;
     }
 
+    public static JPanel createTablePanel(Table table) {
+        JPanel panel = new JPanel();
+        JPanel labelPanel = new JPanel(new GridLayout(3, 1));
+        panel.add(labelPanel, BorderLayout.PAGE_START);
+
+        JLabel schemaInfo = createLabel(WorkingSet.getCurrentSchema().toString());
+        labelPanel.add(schemaInfo);
+
+        if (table == null) {
+            labelPanel.add(createLabel("Choose table"));
+        } else {
+            JLabel tableInfo = CommonComponents.createLabel(table.toString());
+            labelPanel.add(tableInfo);
+
+            panel.add(createTable(table), BorderLayout.CENTER);
+        }
+        return panel;
+    }
+
     public static JScrollPane createTable(Table table) {
         List<Attribute> attributes = new ArrayList<>(table.getAttributes());
         String[] columnNames = attributes.stream().map(Attribute::getName).toArray(String[]::new);

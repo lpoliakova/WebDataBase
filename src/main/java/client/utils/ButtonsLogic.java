@@ -2,6 +2,7 @@ package client.utils;
 
 import client.view.StartFrame;
 import client.view.TableFrame;
+import client.view.TwoTablesFrame;
 import shared.*;
 
 import java.awt.*;
@@ -33,6 +34,7 @@ public class ButtonsLogic {
     public static void leaveSchema() {
         WorkingSet.setCurrentSchema(null);
         WorkingSet.setCurrentTable(null);
+        WorkingSet.setCurrentOtherTable(null);
         EventQueue.invokeLater(StartFrame::new);
     }
 
@@ -48,13 +50,28 @@ public class ButtonsLogic {
     public static void loadTable(String tableName) {
         Schema schema = WorkingSet.getCurrentSchema();
         Table table = schema.getTable(tableName);
-        WorkingSet.setCurrentTable(table);
-        EventQueue.invokeLater(TableFrame::new);
+        if (WorkingSet.isOneTable()) {
+            WorkingSet.setCurrentTable(table);
+            EventQueue.invokeLater(TableFrame::new);
+        } else {
+            if (WorkingSet.isFirstTable()) {
+                WorkingSet.setCurrentTable(table);
+                EventQueue.invokeLater(TwoTablesFrame::new);
+            } else {
+                WorkingSet.setCurrentOtherTable(table);
+                EventQueue.invokeLater(TwoTablesFrame::new);
+            }
+        }
     }
 
-    public static void saveTable() {
+    public static void saveTable(boolean first) {
         Schema schema = WorkingSet.getCurrentSchema();
-        Table table = WorkingSet.getCurrentTable();
+        Table table;
+        if (first) {
+            table = WorkingSet.getCurrentTable();
+        } else {
+            table = WorkingSet.getCurrentOtherTable();
+        }
         WorkingSet.getConnection().writeTable(schema.getName(), table);
     }
 
@@ -64,6 +81,26 @@ public class ButtonsLogic {
         schema.deleteTable(table.getName());
         WorkingSet.getConnection().deleteTable(schema.getName(), table.getName());
         WorkingSet.setCurrentTable(null);
+        EventQueue.invokeLater(TableFrame::new);
+    }
+
+    public static void subtractTables() {
+        Table firstTable = WorkingSet.getCurrentTable();
+        Table secondTable = WorkingSet.getCurrentOtherTable();
+        Table newTable = Table.subtractTables("subtraction_of_" + firstTable.getName() + "_and_" + secondTable.getName(),
+                firstTable, secondTable);
+        WorkingSet.setCurrentTable(newTable);
+        WorkingSet.setCurrentOtherTable(null);
+        EventQueue.invokeLater(TableFrame::new);
+    }
+
+    public static void intersectTables() {
+        Table firstTable = WorkingSet.getCurrentTable();
+        Table secondTable = WorkingSet.getCurrentOtherTable();
+        Table newTable = Table.intersectTables("intersection_of_" + firstTable.getName() + "_and_" + secondTable.getName(),
+                firstTable, secondTable);
+        WorkingSet.setCurrentTable(newTable);
+        WorkingSet.setCurrentOtherTable(null);
         EventQueue.invokeLater(TableFrame::new);
     }
 

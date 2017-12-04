@@ -27,9 +27,9 @@ public class EntryPoint {
         try {
             //createClientRmpConnection();
             //createClientIiopConnection();
-            //createClientSOAPConnection();
+            createClientSOAPConnection();
             //createClientCORBAConnection();
-            createClientIiopToCorbaConnection();
+            //createClientIiopToCorbaConnection();
             EventQueue.invokeLater(StartFrame::new);
         } catch (Exception ex) {
             CommonComponents.showConnectionException(ex);

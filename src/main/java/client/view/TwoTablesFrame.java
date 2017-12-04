@@ -4,25 +4,25 @@ import client.utils.ButtonsLogic;
 import client.utils.CommonComponents;
 import client.utils.ViewConstants;
 import client.utils.WorkingSet;
-import shared.Table;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class TableFrame extends JFrame {
-
-    public TableFrame() {
+public class TwoTablesFrame extends JFrame {
+    public TwoTablesFrame() {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setSize(ViewConstants.STANDARD_WINDOW_WIDTH, ViewConstants.STANDARD_WINDOW_HEIGHT);
         setTitle("Table Representation");
         setResizable(false);
         setLocation(ViewConstants.getStandardWindowLocation());
 
-        WorkingSet.setOneTable(true);
-        WorkingSet.setFirstTable(true);
+        WorkingSet.setOneTable(false);
 
         setJMenuBar(createMenuBar());
-        add(CommonComponents.createTablePanel(WorkingSet.getCurrentTable()), BorderLayout.PAGE_START);
+        JPanel panel = new JPanel(new GridLayout(1, 2));
+        panel.add(CommonComponents.createTablePanel(WorkingSet.getCurrentTable()));
+        panel.add(CommonComponents.createTablePanel(WorkingSet.getCurrentOtherTable()));
+        add(panel);
 
         setVisible(true);
     }
@@ -39,18 +39,12 @@ public class TableFrame extends JFrame {
             dispose();
         });
 
-        JMenu tableMenu = new JMenu("Table");
+        JMenu tableMenu = new JMenu("Left Table");
         menuBar.add(tableMenu);
-        JMenuItem createTable = tableMenu.add("Create new table");
-        createTable.addActionListener(e -> {
-            EventQueue.invokeLater(CreateTableFrame::new);
-            setVisible(false);
-            dispose();
-        });
-
         JMenuItem loadTable = tableMenu.add("Load table");
         loadTable.addActionListener(e -> {
             EventQueue.invokeLater(SelectTableFrame::new);
+            WorkingSet.setFirstTable(true);
             setVisible(false);
             dispose();
         });
@@ -58,35 +52,41 @@ public class TableFrame extends JFrame {
         JMenuItem saveTable = tableMenu.add("Save table");
         saveTable.addActionListener(e -> ButtonsLogic.saveTable(true));
 
-        JMenuItem deleteTable = tableMenu.add("Delete table");
-        deleteTable.addActionListener(e -> {
-            ButtonsLogic.deleteTable();
-            setVisible(false);
-            dispose();
-            //TODO: add confirmation
-        });
-
-        JMenu entryMenu = new JMenu("Entry");
-        menuBar.add(entryMenu);
-        JMenuItem addEntry = entryMenu.add("Add entry");
-        addEntry.addActionListener(e -> {
-            EventQueue.invokeLater(CreateEntryFrame::new);
+        JMenu otherTableMenu = new JMenu("Right Table");
+        menuBar.add(otherTableMenu);
+        JMenuItem loadOtherTable = otherTableMenu.add("Load table");
+        loadOtherTable.addActionListener(e -> {
+            EventQueue.invokeLater(SelectTableFrame::new);
+            WorkingSet.setFirstTable(false);
             setVisible(false);
             dispose();
         });
 
-        JMenuItem deleteEntry = entryMenu.add("Delete entry");
-        deleteEntry.addActionListener(e -> {
-            EventQueue.invokeLater(DeleteEntryFrame::new);
+        JMenuItem saveOtherTable = otherTableMenu.add("Save table");
+        saveOtherTable.addActionListener(e -> ButtonsLogic.saveTable(false));
+
+        JMenu additionalOperations = new JMenu("Operations");
+        menuBar.add(additionalOperations);
+        JMenuItem subtraction = additionalOperations.add("Subtract");
+        subtraction.addActionListener(e -> {
+            ButtonsLogic.subtractTables();
+            setVisible(false);
+            dispose();
+        });
+
+        JMenuItem intersection = additionalOperations.add("Intersect");
+        intersection.addActionListener(e -> {
+            ButtonsLogic.intersectTables();
             setVisible(false);
             dispose();
         });
 
         JMenu switcher = new JMenu("View");
         menuBar.add(switcher);
-        JMenuItem twoTables = switcher.add("Two tables representation");
-        twoTables.addActionListener(e -> {
-            EventQueue.invokeLater(TwoTablesFrame::new);
+        JMenuItem oneTable = switcher.add("One table representation");
+        oneTable.addActionListener(e -> {
+            EventQueue.invokeLater(TableFrame::new);
+            WorkingSet.setCurrentOtherTable(null);
             setVisible(false);
             dispose();
         });
